@@ -19,6 +19,7 @@ router.delete('/delete/:id',async(req,res)=>{
                 //filter out the user data of the id
                 userData = parseData.filter(user=>user.ID!=newID);
                 if(userData.length>0){
+                    //store the new user data
                     fs.writeFile('users.json',JSON.stringify(userData),(err)=>{
                         if(err)
                             res.send('Save User failed')
