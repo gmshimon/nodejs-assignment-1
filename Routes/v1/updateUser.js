@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
-const { exit } = require("process");
 
 router.patch("/update/:id", (req, res) => {
   const id = req.params.id;
@@ -10,7 +9,6 @@ router.patch("/update/:id", (req, res) => {
     res.send("ID is not an number");
   } else {
     const newID = Number(id);
-    let userData = [];
     fs.readFile("users.json", (err, data) => {
       if (err) {
         res.send("Error");
