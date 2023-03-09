@@ -12,13 +12,27 @@ router.post('/save',async(req,res)=>{
         contact: '0899999',
         photoURL: 'asdasdasdasd'
     }
-    fs.writeFile('users.json',JSON.stringify(newUser),err=>{
+
+    //fetch all user
+    let userData;
+    fs.readFile('users.json',(err,data)=>{
         if(err){
-            res.send("Save user failed")
+            res.send("Error");
         }else{
-            res.send("User added successfully");
+            const parseData = JSON.parse(data)
+            userData = parseData;
+            userData.push(user)
         }
     })
+
+    setTimeout(()=>{
+        fs.writeFile('users.json',JSON.stringify(userData),(err)=>{
+            if(err)
+                res.send('Save User failed')
+            else
+                res.send("Users added successfully");
+        })
+    },2000)
 })
 
 module.exports = router;
