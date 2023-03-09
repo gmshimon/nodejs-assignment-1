@@ -25,8 +25,9 @@ router.delete('/delete/:id',async(req,res)=>{
                         else
                             res.send("Users added successfully");
                     })
+                }else{
+                    res.send("No user found with given ID")
                 }
-                res.send(userData)
                 
             }
         })
