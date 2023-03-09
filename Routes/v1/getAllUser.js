@@ -9,7 +9,8 @@ router.get("/all",async(req,res)=>{
         if(err){
             res.send("Error");
         }else{
-            res.send(JSON.parse(data).slice(0,limit));
+            const parseData = JSON.parse(data)
+            res.send(parseData.slice(0,limit));
         }
     })
 })
