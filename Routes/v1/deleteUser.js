@@ -4,9 +4,8 @@ const fs = require('fs');
 
 router.delete('/delete/:id',async(req,res)=>{
     const id = req.params.id;
-    console.log(typeof(id))
     if(isNaN(id)){
-        res.send("yay")
+        res.send("ID is not an number")
     }
     else{
         const newID = Number(id)
