@@ -5,13 +5,6 @@ const fs = require('fs');
 router.post('/save',async(req,res)=>{
     const user = req.body
     console.log(user);
-    const newUser = {
-        name: 'hehe',
-        address: 'Mia para',
-        gender: 'female',
-        contact: '0899999',
-        photoURL: 'asdasdasdasd'
-    }
 
     //fetch all user
     let userData;
@@ -21,17 +14,26 @@ router.post('/save',async(req,res)=>{
         }else{
             const parseData = JSON.parse(data)
             userData = parseData;
+            //generate unique id for every user
+            const id = userData.length+1;
+            user.ID = id.toString();
             userData.push(user)
         }
     })
 
     setTimeout(()=>{
-        fs.writeFile('users.json',JSON.stringify(userData),(err)=>{
-            if(err)
-                res.send('Save User failed')
-            else
-                res.send("Users added successfully");
-        })
+        //check all the keys in new user object
+        if(("ID" in user) && ("name" in user) && ("gender" in user)&&("contact" in user) && ("address" in user) && ("photoURL") in user){
+            //save user data to json file 
+            fs.writeFile('users.json',JSON.stringify(userData),(err)=>{
+                if(err)
+                    res.send('Save User failed')
+                else
+                    res.send("Users added successfully");
+            })
+        }else{
+            res.send("Keys do not match")
+        }
     },2000)
 })
 
